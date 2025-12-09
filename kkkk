@@ -1,0 +1,28 @@
+import requests
+
+API_KEY = "YOUR_PICTORY_API_KEY"
+ENDPOINT = "https://api.pictory.ai/v1/create-video"
+
+def create_video(script):
+    headers = {
+        'Authorization': f'Bearer {API_KEY}',
+        'Content-Type': 'application/json',
+    }
+
+    data = {
+        "script": script,
+        "title": "Video Title",
+        "video_type": "template",  # یا نوع ویدئو دلخواه
+        "quality": "high"
+    }
+
+    response = requests.post(ENDPOINT, json=data, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return response.text
+
+# اسکریپت ویدئو
+script = "این یک اسکریپت تست است که برای تولید ویدئو استفاده می‌شود."
+video_response = create_video(script)
+print(video_response)
